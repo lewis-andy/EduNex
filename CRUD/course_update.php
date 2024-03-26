@@ -1,26 +1,46 @@
+<?php
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
+
+// Include the layout
+include('../layout.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Students</title>
+    <title>View Courses</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
 <div class="container mt-4">
-    <a href="../create.php" class="btn btn-primary mb-3">Add a new record</a><hr>
     <?php
     // Include database connection file
     include_once "../config.php";
 
-    // Function to display data from the Students table
-    function displayStudentsTable($conn) {
-        $sql = "SELECT * FROM Students";
+    // Function to display data from the Courses table
+    function displayCoursesTable($conn) {
+        $sql = "SELECT * FROM Courses";
         $result = mysqli_query($conn, $sql);
 
         if ($result && mysqli_num_rows($result) > 0) {
-            echo "<h2>Students Table</h2>";
+            echo "<h2>Courses Table</h2>";
             echo "<table class='table'>";
             // Table headers
             echo "<thead class='thead-light'>";
@@ -40,37 +60,32 @@
                 }
                 // CRUD operations
                 echo "<td>";
-                if (isset($row['std_id'])) {
-                    // Encode table name to ensure proper URL formatting
-                    $encodedTableName = urlencode("Students");
-
-                    // Generate links to update and delete pages
-                    echo "<a href='../update.php?table=$encodedTableName&id=" . $row['std_id'] . "' class='btn btn-primary'>Edit</a> ";
-                    echo "<a href='delete.php?table=$encodedTableName&id=" . $row['std_id'] . "' class='btn btn-danger'>Delete</a>";
-                } else {
-                    echo "N/A";
-                }
+                echo "<a href='update_courses.php?id=" . $row['course_id'] . "&table=Courses' class='btn btn-primary'>Edit</a> ";
+                echo "<a href='delete_course.php?id=" . $row['course_id'] . "&table=Courses' class='btn btn-danger'>Delete</a>";
                 echo "</td>";
                 echo "</tr>";
             }
             echo "</tbody>";
             echo "</table>";
         } else {
-            echo "<p>No data available in Students table</p>";
+            echo "<p>No data available in Courses table</p>";
         }
     }
 
-    // Display the Students table and CRUD operations
-    displayStudentsTable($conn);
+    // Display the Courses table and CRUD operations
+    displayCoursesTable($conn);
 
     // Close database connection
     mysqli_close($conn);
     ?>
-
-    <br>
-    <a href="teachers_update.php" class="btn btn-primary">View and Update Teachers</a><hr>
-    <a href="course_update.php" class="btn btn-warning">View and Update Courses</a><hr>
-    <a href="school_data.php" class="btn btn-success">View School Data</a><hr>
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <a href="../create_course.php" class="btn btn-success">Add New Course</a>
+        </div>
+        <div class="col-md-6 text-right">
+            <a href="edit.php" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
 </div>
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

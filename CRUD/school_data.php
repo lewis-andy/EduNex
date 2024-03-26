@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Teachers</title>
+    <title>View School Data</title>
     <style>
         table {
             width: 100%;
@@ -24,48 +24,40 @@
 // Include database connection file
 include_once "../config.php";
 
-// Function to display data from the Teachers table
-function displayTeachersTable($conn) {
-    $sql = "SELECT * FROM Teachers";
+// Function to display data from the school_data table
+function displaySchoolDataTable($conn) {
+    $sql = "SELECT * FROM school_data";
     $result = mysqli_query($conn, $sql);
 
     if ($result && mysqli_num_rows($result) > 0) {
-        echo "<h2>Teachers Table</h2>";
+        echo "<h2>School Data Table</h2>";
         echo "<table>";
         // Table headers
         echo "<tr>";
         while ($fieldinfo = mysqli_fetch_field($result)) {
             echo "<th>" . $fieldinfo->name . "</th>";
         }
-        echo "<th>Action</th>"; // Add action column
         echo "</tr>";
         // Table data
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            foreach ($row as $key => $value) {
+            foreach ($row as $value) {
                 echo "<td>" . $value . "</td>";
             }
-            // CRUD operations
-            echo "<td>";
-            echo "<a href='update_teacher.php?id=" . $row['teacher_id'] . "'>Edit</a> | ";
-            echo "<a href='delete_teacher.php?id=" . $row['teacher_id'] . "'>Delete</a>";
-            echo "</td>";
             echo "</tr>";
         }
         echo "</table>";
     } else {
-        echo "<p>No data available in Teachers table</p>";
+        echo "<p>No data available in School Data table</p>";
     }
 }
 
-// Display the Teachers table and CRUD operations
-displayTeachersTable($conn);
+// Display the School Data table
+displaySchoolDataTable($conn);
 
 // Close database connection
 mysqli_close($conn);
 ?>
-<br>
-<br>
-<a href="edit.php">Back home</a>
+<a href="edit.php"> back home</a>
 </body>
 </html>

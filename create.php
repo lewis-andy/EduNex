@@ -2,13 +2,13 @@
 // Include database connection
 include 'config.php';
 
-// Debugging - Display form data
-echo "<pre>";
-print_r($_POST);
-echo "</pre>";
+// Check for errors in the database connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Check if form data is set
-if(isset($_POST['std_name'], $_POST['gender'], $_POST['dob'], $_POST['email'], $_POST['phone_number'], $_POST['fees'], $_POST['course_id'])) {
+if(isset($_POST['std_name'], $_POST['gender'], $_POST['dob'], $_POST['email'], $_POST['phone_number'], $_POST['fees'])) {
     // Get form data
     $std_name = $_POST['std_name'];
     $gender = $_POST['gender'];
@@ -16,11 +16,9 @@ if(isset($_POST['std_name'], $_POST['gender'], $_POST['dob'], $_POST['email'], $
     $email = $_POST['email'];
     $phone_number = $_POST['phone_number'];
     $fees = $_POST['fees'];
-    $course_id = $_POST['course_id']; // Newly added course_id
 
     // Prepare the SQL statement to prevent SQL injection
-    $insert_student_sql = "INSERT INTO students (std_name, gender, dob, email, phone_number, fees) 
-            VALUES (?, ?, ?, ?, ?, ?)";
+    $insert_student_sql = "INSERT INTO students (std_name, gender, dob, email, phone_number, fees) VALUES (?, ?, ?, ?, ?, ?)";
 
     // Prepare and bind parameters for student insertion
     $stmt = $conn->prepare($insert_student_sql);
@@ -28,38 +26,14 @@ if(isset($_POST['std_name'], $_POST['gender'], $_POST['dob'], $_POST['email'], $
 
     // Execute the statement for inserting student
     if ($stmt->execute()) {
-        // Insert enrollment data after successfully adding student
-        $student_id = $stmt->insert_id; // Get the ID of the newly inserted student
-
-        // Prepare the SQL statement for fetching courses
-        $sql = "SELECT id, course_name FROM courses";
-
-        // Execute the statement to fetch courses
-        $result = $conn->query($sql);
-
-        // Check if the query was successful
-        if ($result) {
-            // Populate dropdown menu with course options
-            if ($result->num_rows > 0) {
-                echo '<select id="course" name="course" required>';
-                while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['course_name'] . "</option>";
-                }
-                echo '</select><br>';
-            } else {
-                echo "No courses found";
-            }
-        } else {
-            echo "Error: " . $conn->error;
-        }
-
-        // Close result set
-        $result->close();
+        // Redirect back to the appropriate page after successful data insertion
+        header("Location: CRUD/edit.php");
+        exit();
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Error inserting record: " . $stmt->error;
     }
 
-    // Close statements
+    // Close statement
     $stmt->close();
 } else {
     echo "Form data is not set";
@@ -108,6 +82,8 @@ $conn->close();
 </form>
 <a href="create_teacher.php">Add teacher</a>
 <a href="create_course.php">Add course</a>
+<br>
+<a href="CRUD/edit.php">view</a>
 </body>
 </html>
 

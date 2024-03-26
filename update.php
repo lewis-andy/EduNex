@@ -10,31 +10,27 @@ if (isset($_GET['id']) && isset($_GET['table'])) {
 
     // Ensure that 'id' and 'table' parameters are not empty
     if (!empty($id) && !empty($table)) {
-        // Construct the SQL query to fetch the record based on ID and table name
+        // Retrieve the record from the database based on ID and table name
         $sql = "SELECT * FROM $table WHERE std_id = $id";
-
-        // Execute the SQL query
         $result = mysqli_query($conn, $sql);
 
-
-        // Check if the query executed successfully
-        if ($result) {
-            // Proceed with updating the record
-            // Your update logic goes here
-
-            // Example: Output 'id' and 'table' parameters for debugging
-            echo "ID: $id, Table: $table";
+        // Check if the record exists
+        if (mysqli_num_rows($result) > 0) {
+            // Fetch the record data
+            $row = mysqli_fetch_assoc($result);
         } else {
-            // Handle case where query execution failed
-            echo "Error: " . mysqli_error($conn);
+            echo "Error: Record not found";
+            exit;
         }
     } else {
         // Handle case where 'id' or 'table' parameter is empty
         echo "Error: ID or table parameter is empty";
+        exit;
     }
 } else {
     // Handle case where 'id' or 'table' parameter is not set
     echo "Error: ID or table parameter is missing in the URL";
+    exit;
 }
 
 
@@ -66,15 +62,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             $fields[] = "fees=" . $_POST["fees"];
         }
 
-        /// Construct the UPDATE query
-        $updateQuery = "UPDATE $table SET " . implode(", ", $fields) . " WHERE std_id=" . $id;
+        // Construct the UPDATE query
+        $updateQuery = "UPDATE $table SET " . implode(", ", $fields) . " WHERE std_id=" . $id; // Change 'Students_id' to 'std_id'
         echo "Update Query: $updateQuery<br>"; // Debugging line
 
-        // Execute the UPDATE query
-        if (mysqli_query($conn, $sql)) {
-            echo "Record updated successfully";
+        // Check if $updateQuery is not empty
+        if (!empty($updateQuery)) {
+            // Execute the UPDATE query
+            if (mysqli_query($conn, $updateQuery)) { // Use the updated query
+                echo "Record updated successfully";
+            } else {
+                echo "Error updating record: " . mysqli_error($conn);
+            }
         } else {
-            echo "Error updating record: " . mysqli_error($conn);
+            echo "Update query is empty";
         }
     } else {
         echo "Invalid ID or table name";
@@ -87,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 mysqli_close($conn);
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,6 +100,8 @@ mysqli_close($conn);
 <h2>Update Record</h2>
 
 <form method="post" action="update.php?id=<?php echo $_GET['id']; ?>&table=<?php echo $_GET['table']; ?>">
+
+
     <label for="gender">Gender:</label><br>
     <input type="text" id="gender" name="gender" value="<?php echo $row['gender'] ?? ''; ?>"><br>
 
