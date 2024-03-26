@@ -46,6 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         $fields = array();
 
         // Check and add each form field to the fields array
+        if (isset($_POST["std_name"])) {
+            $fields[] = "std_name='" . $_POST["std_name"] . "'";
+        }
         if (isset($_POST["gender"])) {
             $fields[] = "gender='" . $_POST["gender"] . "'";
         }
@@ -80,44 +83,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     } else {
         echo "Invalid ID or table name";
     }
-} else {
-    echo "Form data not submitted";
 }
 
 // Close database connection
 mysqli_close($conn);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Record</title>
+    <title>UpdateStudents Record</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h2>Update Record</h2>
+<div class="container">
+    <h2 class="mt-5 mb-4 text-center">Update Record</h2>
 
-<form method="post" action="update.php?id=<?php echo $_GET['id']; ?>&table=<?php echo $_GET['table']; ?>">
+    <form method="post" action="update.php?id=<?php echo $_GET['id']; ?>&table=<?php echo $_GET['table']; ?>">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="std_name" value="<?php echo $row['std_name'] ?? ''; ?>">
+        </div>
 
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <input type="text" class="form-control" id="gender" name="gender" value="<?php echo $row['gender'] ?? ''; ?>">
+        </div>
 
-    <label for="gender">Gender:</label><br>
-    <input type="text" id="gender" name="gender" value="<?php echo $row['gender'] ?? ''; ?>"><br>
+        <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" class="form-control" id="dob" name="dob" value="<?php echo $row['dob'] ?? ''; ?>">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" value="<?php echo $row['email'] ?? ''; ?>">
+        </div>
 
-    <label for="dob">Date of Birth:</label><br>
-    <input type="date" id="dob" name="dob" value="<?php echo $row['dob'] ?? ''; ?>"><br>
+        <div class="form-group">
+            <label for="phone_number">Phone Number:</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" value="<?php echo $row['phone_number'] ?? ''; ?>">
+        </div>
 
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" value="<?php echo $row['email'] ?? ''; ?>"><br>
+        <div class="form-group">
+            <label for="fees">Fees:</label>
+            <input type="number" class="form-control" id="fees" name="fees" value="<?php echo $row['fees'] ?? ''; ?>">
+        </div>
 
-    <label for="phone_number">Phone Number:</label><br>
-    <input type="text" id="phone_number" name="phone_number" value="<?php echo $row['phone_number'] ?? ''; ?>"><br>
+        <button type="submit" name="submit" class="btn btn-primary">Update</button>
 
-    <label for="fees">Fees:</label><br>
-    <input type="number" id="fees" name="fees" value="<?php echo $row['fees'] ?? ''; ?>"><br>
-
-    <input type="submit" name="submit" value="Update">
-</form>
+    </form>
+    <hr>
+    <a href="CRUD/edit.php" class="btn btn-success">Back to dashboard</a>
+</div>
 </body>
 </html>

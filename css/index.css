@@ -343,151 +343,97 @@ input {
 
 }
 
-/* Set the minimum height of the wrapper to 100% of the viewport height */
-html, body {
-    height: 100%;
-    margin: 0;
+/* Team Section Styles */
+.team_section {
+    padding: 50px 0; /* Add padding for better spacing */
 }
 
-/* Style the wrapper with flexbox to push the footer to the bottom */
-body {
-    display: flex;
-    flex-direction: column;
+.heading_container {
+    margin-bottom: 30px; /* Add margin bottom for spacing */
 }
 
-/* Resetting default margin and padding for all elements */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-
-
-}
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+.heading_container h2 {
+    font-size: 36px; /* Adjust font size */
+    margin-bottom: 10px; /* Add margin bottom for spacing */
 }
 
-/* Styling the footer container */
-.footer {
-    background-color: #0a0808; /* Set the background color */
-    color: #fff; /* Set the text color */
-    padding: 30px 0; /* Add some padding for better spacing */
-    margin-top: auto;
-    font-family: 'Ubuntu', sans-serif;
-    position: relative;
-    min-height: 100%;
+.heading_container p {
+    font-size: 18px; /* Adjust font size */
+    color: #666; /* Set text color */
 }
 
-/* Styling the container within the footer */
-.container {
-    max-width: 1200px; /* Set a maximum width for the container */
-    margin: 0 auto; /* Center the container on the page */
-    flex: 1;
-}
-
-/* Styling the rows within the container */
 .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: flex; /* Use flexbox for card layout */
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
 }
 
-/* Styling individual footer columns */
-.footer-col {
-    width: 25%; /* Each column takes 25% of the container width */
+.col-md-4 {
+    flex: 0 0 33.33%; /* Set column width for medium screens */
+    max-width: 33.33%; /* Set maximum width for medium screens */
+    padding: 0 15px; /* Add padding for spacing between cards */
 }
 
-/* Styling heading within footer columns */
-.footer-col h4 {
-    color: #ff6a00; /* Set the heading text color */
-    margin-bottom: 15px; /* Add some space below the heading */
+.box {
+    background-color: #f9f9f9; /* Set background color for cards */
+    padding: 20px; /* Add padding inside cards */
+    margin-bottom: 30px; /* Add margin bottom for spacing */
+    border-radius: 10px; /* Add border radius for rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+    transition: transform 0.5s ease-in-out; /* Add transition for animation */
 }
 
-/* Styling the unordered list within footer columns */
-.footer-col ul {
-    list-style: none;
-    padding: 0;
+.box:hover {
+    transform: translateX(10px); /* Animate cards from left to right on hover */
 }
 
-/* Styling the list items within footer columns */
-.footer-col li {
-    margin-bottom: 10px;
+.img-box img {
+    width: 100%; /* Make images fill their containers */
+    border-radius: 5px; /* Add border radius for rounded image corners */
 }
 
-/* Styling links within footer columns */
-.footer-col a {
-    text-decoration: none;
-    color: #bbb; /* Set link color */
-    transition: color 0.3s ease; /* Add a smooth color transition on hover */
+.detail-box {
+    text-align: center; /* Center align text */
 }
 
-/* Change link color on hover */
-.footer-col a:hover {
-    color: #fff; /* Change link color to white on hover */
+.detail-box h5 {
+    font-size: 24px; /* Adjust font size */
+    margin-bottom: 5px; /* Add margin bottom for spacing */
 }
 
-/* Styling social links within the footer */
-.social-links a {
-    color: #bbb; /* Set social link color */
-    margin-right: 10px; /* Add some space between social links */
+.detail-box h6 {
+    font-size: 18px; /* Adjust font size */
+    color: #666; /* Set text color */
 }
 
-/* Change social link color on hover */
-.social-links a:hover {
-    color: #fff; /* Change social link color to white on hover */
+.btn-box {
+    text-align: center; /* Center align button */
+    margin-top: 30px; /* Add margin top for spacing */
 }
-@media (max-width: 767px) {
-    .footer-col {
-        width: 50%; /* Each column takes 50% of the container width */
-        margin-bottom: 30px; /* Add some space between columns */
+
+.btn-box a {
+    padding: 10px 30px; /* Add padding for button */
+    background-color: #0056b3; /* Set button background color */
+    color: #fff; /* Set button text color */
+    text-decoration: none; /* Remove default link underline */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    transition: background-color 0.3s; /* Add transition for hover effect */
+}
+
+.btn-box a:hover {
+    background-color: #004080; /* Change button background color on hover */
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 992px) {
+    .col-md-4 {
+        flex: 0 0 50%; /* Set column width for small screens */
+        max-width: 50%; /* Set maximum width for small screens */
     }
 }
-.footer-col ul li a{
-    font-size: 16px;
-    text-transform: capitalize;
-    color: #d0c3c3;
-    text-decoration: none;
-    font-weight: 500;
-    display: block;
-    transition: all 0.3s ease;
-}
-.footer-col ul li a:hover{
-    color: #a18b7b;
-    padding-left: 8px;
-}
-.footer-col h4{
-    font-size: 18px;
-    color: #ff6a00;
-    text-transform: capitalize;
-    margin-bottom: 15px;
-    position: relative;
-    font-weight: 500;
-}
-.footer-col h4::before{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -10px;
-    background-color: #ff6a00;
-    height: 2px;
-    box-sizing: border-box;
-    width: 50px;
-}
-.footer-col ul li:not(:last-child) {
-    margin-bottom: 10px;
-}
-/* ... Your existing CSS ... */
 
-/* Styling the copyright section */
-.copyright {
-    text-align: center; /* Center-align the text */
-    margin-top: 20px; /* Add some space above the copyright text */
-}
-
-/* Styling the copyright text */
-.copyright p {
-    font-size: 14px; /* Set the font size */
-    color: #bbb; /* Set the text color */
+@media screen and (max-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 100%; /* Set column width for extra small screens */
+        max-width: 100%; /* Set maximum width for extra small screens */
+    }
 }

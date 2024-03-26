@@ -1,3 +1,12 @@
+
+<?php
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
+
+// Include the layout
+include('../layout.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,7 +55,7 @@
 
                     // Generate links to update and delete pages
                     echo "<a href='../update.php?table=$encodedTableName&id=" . $row['std_id'] . "' class='btn btn-primary'>Edit</a> ";
-                    echo "<a href='delete.php?table=$encodedTableName&id=" . $row['std_id'] . "' class='btn btn-danger'>Delete</a>";
+                    echo "<a href='../delete.php?table=$encodedTableName&id=" . $row['std_id'] . "' class='btn btn-danger'>Delete</a>";
                 } else {
                     echo "N/A";
                 }
@@ -71,7 +80,18 @@
     <a href="teachers_update.php" class="btn btn-primary">View and Update Teachers</a><hr>
     <a href="course_update.php" class="btn btn-warning">View and Update Courses</a><hr>
     <a href="school_data.php" class="btn btn-success">View School Data</a><hr>
+    <a href="../index.php" class="btn btn-success">Main Menu</a><hr>
 </div>
+
+
+<?php
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
+
+// Include the layout
+include('../footer.php');
+
+?>
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

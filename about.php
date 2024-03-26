@@ -79,6 +79,17 @@ include('layout.php');
     </div>
 </section>
 
+
 <!-- end about section -->
+
+
+<?php
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
+
+// Include the layout
+include('footer.php');
+
+?>
 </body>
 </html>

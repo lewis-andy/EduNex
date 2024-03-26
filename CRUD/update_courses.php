@@ -1,3 +1,12 @@
+
+
+<?php
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
+
+// Include the layout
+include('../layout.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,8 +96,10 @@
         </div>
 
         <button type="submit" class="btn btn-primary" name="submit">Update</button>
-    </form>
 
+    </form>
+    <a href="edit.php" class="btn btn-success">back to dashboard</a><hr>
+    <a href="course_update.php" class="btn btn-success">view courses</a><hr>
 </div>
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

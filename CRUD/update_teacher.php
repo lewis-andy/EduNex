@@ -57,8 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     } else {
         echo "Invalid ID or table name";
     }
-} else {
-    echo "Form data not submitted";
 }
 
 // Close database connection
@@ -93,7 +91,11 @@ mysqli_close($conn);
         </div>
         <button type="submit" class="btn btn-primary" name="submit">Update</button>
     </form>
+    <a href="edit.php" class="btn btn-success">Back to dash board</a><hr>
+    <a href="teachers_update.php" class="btn btn-success">view teachers</a><hr>
 </div>
+
+
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

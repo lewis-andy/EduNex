@@ -40,7 +40,7 @@ include('../layout.php');
         $result = mysqli_query($conn, $sql);
 
         if ($result && mysqli_num_rows($result) > 0) {
-            echo "<h2>Courses Table</h2>";
+            echo "<h2>Available courses</h2>";
             echo "<table class='table'>";
             // Table headers
             echo "<thead class='thead-light'>";
@@ -87,6 +87,16 @@ include('../layout.php');
         </div>
     </div>
 </div>
+
+
+<?php
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
+
+// Include the layout
+include('../footer.php');
+
+?>
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
