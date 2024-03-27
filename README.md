@@ -1,4 +1,4 @@
-# EduNex
+## EduNex
  "EduNex is a robust PHP-based platform designed for an educational institutions to seamlessly manage courses, resources, and student interactions.
 
 ## Prerequisites
